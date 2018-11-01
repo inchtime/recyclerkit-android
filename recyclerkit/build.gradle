@@ -29,24 +29,27 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
-    implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    compileOnly "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+    compileOnly "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
+    compileOnly 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 repositories {
     mavenCentral()
 }
 
-def siteUrl = 'https://github.com/inchtime/recyclerkit'
-def gitUrl = 'https://github.com/inchtime/recyclerkit.git'
+def siteUrl = 'https://github.com/inchtime/recyclerkit-android'
+def gitUrl = 'https://github.com/inchtime/recyclerkit-android.git'
+def issuesUrl = 'https://github.com/inchtime/recyclerkit-android/issues'
 
 group = "io.inchtime"
 
@@ -55,7 +58,7 @@ install {
         pom {
             project {
                 packaging 'aar'
-                description 'A View control with a high profile IOS Alert'
+                description 'Recyclerkit for Android RecyclerView'
                 name 'recyclerkit'
                 url siteUrl
                 licenses {
@@ -116,6 +119,7 @@ bintray {
         licenses = ['Apache-2.0']
         websiteUrl = siteUrl
         vcsUrl = gitUrl
+        issueTrackerUrl = issuesUrl
         licenses = ["Apache-2.0"]
         publish = true
     }

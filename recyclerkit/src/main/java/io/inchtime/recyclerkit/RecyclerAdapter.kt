@@ -3,6 +3,7 @@ package io.inchtime.recyclerkit
 import android.content.Context
 import android.support.annotation.NonNull
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -43,11 +44,12 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
         }
     }
 
+
     private val models = ArrayList<Model>()
 
-    private lateinit var recyclerView: RecyclerView
-
     private var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    private lateinit var recyclerView: RecyclerView
 
     var onModelSelectedListener: OnModelSelectedListener? = null
 
@@ -61,12 +63,19 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
 
     /**
      * set the items of recycler adapter
-     *
      * @param items items to display
-     * @param append if false, clear the exist models, then add all items to models
      */
-    fun setItems(items: ArrayList<Model>, append: Boolean = false) {
-        if (!append) models.clear()
+    fun setItems(items: ArrayList<Model>) {
+        models.clear()
+        models.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    /**
+     * add the items of recycler adapter
+     * @param items items to add
+     */
+    fun addItems(items: ArrayList<Model>) {
         models.addAll(items)
         notifyDataSetChanged()
     }
