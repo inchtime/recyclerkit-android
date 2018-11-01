@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">recyclerkit</string>
+    <string name="demo">Demo</string>
+    <string name="app_store">App Store</string>
+    <string name="dribbble">Dribbble</string>
+    <string name="netease_cloud_music">网易云音乐</string>
 </resources>

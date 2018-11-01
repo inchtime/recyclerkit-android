@@ -1,7 +1,7 @@
 RecyclerKit for Android
 =======================
 
-RecyclerKit is support to use android.support.v7.widget.RecyclerView to display thousands of layout you want via `RecyclerAdapter`.
+RecyclerKit is support to use android.support.v7.widget.RecyclerView to display thousands of layout you want via one adapter `RecyclerAdapter`.
 
 RecyclerKit also provide a empty view that you can customized when the recyclerView is empty
 
@@ -29,3 +29,24 @@ Maven:
 
 How To Use
 ----------------------
+
+Kotlin:
+
+```kotlin
+//LinearLayoutManager
+val spanCount = 1
+val adapter = RecyclerKit.adapter(this, spanCount)
+    .recyclerView(R.id.recyclerView)
+    .useLinearLayout(false)
+    .build()
+```
+
+```kotlin
+//GridLayoutManager
+val spanCount = 2
+val adapter = RecyclerKit.adapter(this, spanCount)
+    .recyclerView(R.id.recyclerView)
+    .useGridLayout()
+    .build()
+```
+
