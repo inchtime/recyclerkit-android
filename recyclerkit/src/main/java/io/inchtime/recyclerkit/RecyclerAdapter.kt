@@ -157,9 +157,7 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
         }
     }
 
-    class EmptyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-
-    }
+    class EmptyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     interface OnModelSelectedListener {
         fun onModelSelected(index: Int, model: Model)

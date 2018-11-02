@@ -12,7 +12,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.1.0'
+    implementation 'io.inchtime:recyclerkit:0.3.0'
 }
 ```
 
@@ -22,7 +22,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.1.0</version>
+  <version>0.3.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -30,14 +30,14 @@ Maven:
 How To Use
 ----------------------
 
-Kotlin:
+**Kotlin:**
 
 ```kotlin
 //LinearLayoutManager
 val spanCount = 1
 val adapter = RecyclerKit.adapter(this, spanCount)
     .recyclerView(R.id.recyclerView)
-    .useLinearLayout(false)
+    .withLinearLayout()
     .build()
 ```
 
@@ -46,30 +46,24 @@ val adapter = RecyclerKit.adapter(this, spanCount)
 val spanCount = 2
 val adapter = RecyclerKit.adapter(this, spanCount)
     .recyclerView(R.id.recyclerView)
-    .useGridLayout()
+    .withGridLayout()
     .build()
 ```
+
+then the RecyclerView will show the empty view
 
 Author
 ------
 
-evan
+Evan Cai
+
 QQ: 214390117
+
 email: evan-cai@live.cn
 
 License
 -------
 
-    Copyright 2018 Inchtime, Inc.
+Apache 2.0. See the [LICENSE][2] file for details.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+[2]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE

@@ -25,15 +25,16 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         return this
     }
 
-    fun useLinearLayout(reverse: Boolean = false): RecyclerAdapterBuilder {
-        if (recyclerView == null) throw Exception("please call recyclerView() function first!")
-        recyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, reverse)
+    fun withLinearLayout(orientation: Int = LinearLayoutManager.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
+        if (recyclerView == null) throw Exception("please call recyclerView() function first")
+        val layoutManager = LinearLayoutManager(context, orientation, reverse)
+        recyclerView?.layoutManager = layoutManager
         return this
     }
 
-    fun useGridLayout(): RecyclerAdapterBuilder {
-        if (recyclerView == null) throw Exception("please call recyclerView() function first!")
-        val layoutManager = GridLayoutManager(context, spanCount)
+    fun withGridLayout(orientation: Int = LinearLayoutManager.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
+        if (recyclerView == null) throw Exception("please call recyclerView() function first")
+        val layoutManager = GridLayoutManager(context, spanCount, orientation, reverse)
         layoutManager.spanSizeLookup = adapter.getSpanSizeLookup()
         recyclerView?.layoutManager = layoutManager
         return this

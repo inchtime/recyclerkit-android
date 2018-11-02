@@ -1,6 +1,7 @@
 package io.inchtime.recyclerkit.example
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.TextView
 import io.inchtime.recyclerkit.RecyclerAdapter
@@ -21,16 +22,20 @@ class MainActivity : BaseActivity() {
         val spanCount = 2
         val adapter = RecyclerKit.adapter(this, spanCount)
             .recyclerView(R.id.recyclerView)
-            .useGridLayout()
+            .withGridLayout()
             .build()
 
         adapter.onModelBindListener = object : RecyclerAdapter.OnModelBindListener {
             override fun onModelBind(index: Int, model: RecyclerAdapter.Model, viewHolder: RecyclerAdapter.ViewHolder) {
-                val icon = model.value as HomeIcon
-                val iconImageView = viewHolder.findView<ImageView>(R.id.iconImageView)
-                val titleTextView = viewHolder.findView<TextView>(R.id.titleTextView)
-                iconImageView.setImageResource(icon.icon)
-                titleTextView.text = icon.title
+                when (model.layout) {
+                    R.layout.view_demo_icon -> {
+                        val icon = model.value as HomeIcon
+                        val iconImageView = viewHolder.findView<ImageView>(R.id.iconImageView)
+                        val titleTextView = viewHolder.findView<TextView>(R.id.titleTextView)
+                        iconImageView.setImageResource(icon.icon)
+                        titleTextView.text = icon.title
+                    }
+                }
             }
         }
 
