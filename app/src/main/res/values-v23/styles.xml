@@ -12,6 +12,20 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:windowAnimationStyle">@style/animNavigation</item>
 
     </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:itemBackground">@android:color/black</item>
+        <item name="overlapAnchor">false</item>
+    </style>
+
+    <style name="animNavigation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+    </style>
+
 </resources>

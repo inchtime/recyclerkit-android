@@ -1,10 +1,12 @@
 package io.inchtime.recyclerkit.example
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import io.inchtime.recyclerkit.RecyclerAdapter
 import io.inchtime.recyclerkit.RecyclerKit
+import io.inchtime.recyclerkit.example.activity.AppStoreActivity
 import io.inchtime.recyclerkit.example.common.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -22,10 +24,10 @@ class MainActivity : BaseActivity() {
         val adapter = RecyclerKit.adapter(this, spanCount)
             .recyclerView(R.id.recyclerView)
             .withGridLayout()
-            .modelViewBind { _, model, viewHolder ->
-                when (model.layout) {
+            .modelViewBind { _, viewModel, viewHolder ->
+                when (viewModel.layout) {
                     R.layout.view_examples_icon -> {
-                        val pair = model.value as Pair<*,*>
+                        val pair = viewModel.value as Pair<*,*>
                         val icon = pair.first as Int
                         val title = pair.second as String
                         val iconImageView = viewHolder.findView<ImageView>(R.id.iconImageView)
@@ -39,7 +41,14 @@ class MainActivity : BaseActivity() {
             .emptyViewBind {
                 return@emptyViewBind
             }
-            .modelViewClick { index, model ->
+            .modelViewClick { _, viewModel ->
+                val pair = viewModel.value as Pair<*,*>
+                val icon = pair.first as Int
+                when (icon) {
+                    R.drawable.icon_appstore -> {
+                        startActivity(Intent(this, AppStoreActivity::class.java))
+                    }
+                }
                 return@modelViewClick
             }
             .build()

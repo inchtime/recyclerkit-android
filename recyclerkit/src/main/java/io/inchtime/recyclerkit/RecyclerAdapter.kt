@@ -9,14 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-typealias OnModelViewClick = (index: Int, model: RecyclerAdapter.ViewModel) -> Unit
-typealias OnModelViewLongClick = (index: Int, model: RecyclerAdapter.ViewModel) -> Unit
-typealias OnModelViewBind = (index: Int, model: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) -> Unit
+typealias OnModelViewClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
+typealias OnModelViewLongClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
+typealias OnModelViewBind = (index: Int, viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) -> Unit
 typealias OnEmptyViewBind = (viewHolder: RecyclerAdapter.EmptyViewHolder) -> Unit
 
-class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
+class RecyclerAdapter(private val context: Context, private val spanCount: Int = 1)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, View.OnLongClickListener {
-
 
     companion object {
         const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -104,14 +103,14 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
             view.visibility = if (emptyViewVisibility) View.VISIBLE else View.INVISIBLE
-            EmptyViewHolder(view)
+            EmptyViewHolder(context, view)
         } else {
             // type is layout
             // see fun getItemViewType
             val view = inflater.inflate(type, parent, false)
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
-            ViewHolder(view)
+            ViewHolder(context, view)
         }
     }
 
@@ -160,7 +159,7 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
         }
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(val context: Context, val view: View) : RecyclerView.ViewHolder(view) {
 
         private val views: SparseArray<View> = SparseArray()
 
@@ -175,6 +174,6 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
         }
     }
 
-    class EmptyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    class EmptyViewHolder(val context: Context, val view: View) : RecyclerView.ViewHolder(view)
 
 }

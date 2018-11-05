@@ -1,4 +1,4 @@
-package io.inchtime.recyclerkit.example;
+package io.inchtime.recyclerkit.example.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
