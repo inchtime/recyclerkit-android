@@ -20,6 +20,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+                android:name=".JavaExampleActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme"/>
+
     </application>
 
 </manifest>

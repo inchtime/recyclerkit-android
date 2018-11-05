@@ -3,21 +3,26 @@ package io.inchtime.recyclerkit
 import android.content.Context
 import android.support.annotation.NonNull
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+typealias OnModelViewClick = (index: Int, model: RecyclerAdapter.ViewModel) -> Unit
+typealias OnModelViewLongClick = (index: Int, model: RecyclerAdapter.ViewModel) -> Unit
+typealias OnModelViewBind = (index: Int, model: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) -> Unit
+typealias OnEmptyViewBind = (viewHolder: RecyclerAdapter.EmptyViewHolder) -> Unit
+
 class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, View.OnLongClickListener {
+
 
     companion object {
         const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
     }
 
-    data class Model(
+    data class ViewModel(
         val layout: Int,
         val spanSize: Int,
         val type: ModelType,
@@ -44,18 +49,19 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
         }
     }
 
-
-    private val models = ArrayList<Model>()
+    private val models = ArrayList<ViewModel>()
 
     private var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     private lateinit var recyclerView: RecyclerView
 
-    var onModelSelectedListener: OnModelSelectedListener? = null
+    var onModelViewClick: OnModelViewClick? = null
 
-    var onModelBindListener: OnModelBindListener? = null
+    var onModelViewLongClick: OnModelViewLongClick? = null
 
-    var onEmptyViewBindListener: OnEmptyViewBindListener? = null
+    var onModelViewBind: OnModelViewBind? = null
+
+    var onEmptyViewBind: OnEmptyViewBind? = null
 
     var emptyViewVisibility: Boolean = true
 
@@ -65,7 +71,7 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
      * set the items of recycler adapter
      * @param items items to display
      */
-    fun setItems(items: ArrayList<Model>) {
+    fun setItems(items: ArrayList<ViewModel>) {
         models.clear()
         models.addAll(items)
         notifyDataSetChanged()
@@ -75,7 +81,7 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
      * add the items of recycler adapter
      * @param items items to add
      */
-    fun addItems(items: ArrayList<Model>) {
+    fun addItems(items: ArrayList<ViewModel>) {
         models.addAll(items)
         notifyDataSetChanged()
     }
@@ -96,6 +102,7 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
         return if (VIEW_TYPE_EMPTY == type) {
             val view = inflater.inflate(emptyViewLayout, parent, false)
             view.setOnClickListener(this)
+            view.setOnLongClickListener(this)
             view.visibility = if (emptyViewVisibility) View.VISIBLE else View.INVISIBLE
             EmptyViewHolder(view)
         } else {
@@ -103,6 +110,7 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
             // see fun getItemViewType
             val view = inflater.inflate(type, parent, false)
             view.setOnClickListener(this)
+            view.setOnLongClickListener(this)
             ViewHolder(view)
         }
     }
@@ -115,11 +123,11 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
 
         if (viewHolder is ViewHolder) {
             val model = models[position]
-            onModelBindListener?.onModelBind(position, model, viewHolder)
+            onModelViewBind?.invoke(position, model, viewHolder)
         }
 
         if (viewHolder is EmptyViewHolder) {
-            onEmptyViewBindListener?.onEmptyViewBind(viewHolder)
+            onEmptyViewBind?.invoke(viewHolder)
         }
 
     }
@@ -129,8 +137,18 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
 
         if (!models.isEmpty() && position >= 0) {
             val model = models[position]
-            onModelSelectedListener?.onModelSelected(position, model)
+            onModelViewClick?.invoke(position, model)
         }
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        val position = recyclerView.getChildAdapterPosition(view)
+
+        if (!models.isEmpty() && position >= 0) {
+            val model = models[position]
+            onModelViewLongClick?.invoke(position, model)
+        }
+        return true
     }
 
     fun getSpanSizeLookup(): GridLayoutManager.SpanSizeLookup {
@@ -158,17 +176,5 @@ class RecyclerAdapter(context: Context, private val spanCount: Int = 1)
     }
 
     class EmptyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
-
-    interface OnModelSelectedListener {
-        fun onModelSelected(index: Int, model: Model)
-    }
-
-    interface OnModelBindListener {
-        fun onModelBind(index: Int, model: Model, viewHolder: ViewHolder)
-    }
-
-    interface OnEmptyViewBindListener {
-        fun onEmptyViewBind(viewHolder: EmptyViewHolder)
-    }
 
 }

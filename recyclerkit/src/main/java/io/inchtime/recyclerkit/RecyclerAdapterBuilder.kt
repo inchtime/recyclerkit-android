@@ -40,6 +40,26 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         return this
     }
 
+    fun modelViewBind(listener: OnModelViewBind): RecyclerAdapterBuilder {
+        adapter.onModelViewBind = listener
+        return this
+    }
+
+    fun modelViewClick(listener: OnModelViewClick): RecyclerAdapterBuilder {
+        adapter.onModelViewClick = listener
+        return this
+    }
+
+    fun modelViewLongClick(listener: OnModelViewLongClick): RecyclerAdapterBuilder {
+        adapter.onModelViewLongClick = listener
+        return this
+    }
+
+    fun emptyViewBind(listener: OnEmptyViewBind): RecyclerAdapterBuilder {
+        adapter.onEmptyViewBind = listener
+        return this
+    }
+
     fun build(): RecyclerAdapter {
         return adapter
     }

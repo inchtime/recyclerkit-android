@@ -1,13 +1,11 @@
 package io.inchtime.recyclerkit.example
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.TextView
 import io.inchtime.recyclerkit.RecyclerAdapter
 import io.inchtime.recyclerkit.RecyclerKit
 import io.inchtime.recyclerkit.example.common.BaseActivity
-import io.inchtime.recyclerkit.example.model.HomeIcon
 
 class MainActivity : BaseActivity() {
 
@@ -20,42 +18,49 @@ class MainActivity : BaseActivity() {
     private fun setupRecyclerView() {
 
         val spanCount = 2
+
         val adapter = RecyclerKit.adapter(this, spanCount)
             .recyclerView(R.id.recyclerView)
             .withGridLayout()
-            .build()
-
-        adapter.onModelBindListener = object : RecyclerAdapter.OnModelBindListener {
-            override fun onModelBind(index: Int, model: RecyclerAdapter.Model, viewHolder: RecyclerAdapter.ViewHolder) {
+            .modelViewBind { _, model, viewHolder ->
                 when (model.layout) {
-                    R.layout.view_demo_icon -> {
-                        val icon = model.value as HomeIcon
+                    R.layout.view_examples_icon -> {
+                        val pair = model.value as Pair<*,*>
+                        val icon = pair.first as Int
+                        val title = pair.second as String
                         val iconImageView = viewHolder.findView<ImageView>(R.id.iconImageView)
                         val titleTextView = viewHolder.findView<TextView>(R.id.titleTextView)
-                        iconImageView.setImageResource(icon.icon)
-                        titleTextView.text = icon.title
+                        iconImageView.setImageResource(icon)
+                        titleTextView.text = title
                     }
                 }
+                return@modelViewBind
             }
-        }
+            .emptyViewBind {
+                return@emptyViewBind
+            }
+            .modelViewClick { index, model ->
+                return@modelViewClick
+            }
+            .build()
 
-        val models = ArrayList<RecyclerAdapter.Model>()
+        val models = ArrayList<RecyclerAdapter.ViewModel>()
 
         models.add(
-            RecyclerAdapter.Model(
-                R.layout.view_demo_icon,
+            RecyclerAdapter.ViewModel(
+                R.layout.view_examples_icon,
                 1,
                 RecyclerAdapter.ModelType.MIDDLE,
-                HomeIcon(R.drawable.icon_appstore, getString(R.string.app_store))
+                Pair(R.drawable.icon_appstore, getString(R.string.app_store))
             )
         )
 
         models.add(
-            RecyclerAdapter.Model(
-                R.layout.view_demo_icon,
+            RecyclerAdapter.ViewModel(
+                R.layout.view_examples_icon,
                 1,
                 RecyclerAdapter.ModelType.MIDDLE,
-                HomeIcon(R.drawable.icon_netease_cloud_music, getString(R.string.netease_cloud_music))
+                Pair(R.drawable.icon_netease_cloud_music, getString(R.string.netease_cloud_music))
             )
         )
 

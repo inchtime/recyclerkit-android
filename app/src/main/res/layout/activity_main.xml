@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/demo"
+                android:text="@string/examples"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
