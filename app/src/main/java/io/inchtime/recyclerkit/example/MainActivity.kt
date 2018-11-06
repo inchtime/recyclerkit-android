@@ -6,7 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inchtime.recyclerkit.RecyclerAdapter
 import io.inchtime.recyclerkit.RecyclerKit
-import io.inchtime.recyclerkit.example.activity.AppStoreActivity
+import io.inchtime.recyclerkit.example.activity.AppStoreExampleActivity
+import io.inchtime.recyclerkit.example.activity.ListExampleActivity
 import io.inchtime.recyclerkit.example.common.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -45,17 +46,24 @@ class MainActivity : BaseActivity() {
                 val pair = viewModel.value as Pair<*,*>
                 val icon = pair.first as Int
                 when (icon) {
+                    R.drawable.icon_list -> {
+                        startActivity(Intent(this, ListExampleActivity::class.java))
+                    }
                     R.drawable.icon_appstore -> {
-                        startActivity(Intent(this, AppStoreActivity::class.java))
+                        startActivity(Intent(this, AppStoreExampleActivity::class.java))
                     }
                 }
                 return@modelViewClick
             }
             .build()
 
-        val models = ArrayList<RecyclerAdapter.ViewModel>()
-
-        models.add(
+        val models = arrayListOf(
+            RecyclerAdapter.ViewModel(
+                R.layout.view_examples_icon,
+                1,
+                RecyclerAdapter.ModelType.MIDDLE,
+                Pair(R.drawable.icon_list, getString(R.string.list))
+            ),
             RecyclerAdapter.ViewModel(
                 R.layout.view_examples_icon,
                 1,
@@ -64,16 +72,7 @@ class MainActivity : BaseActivity() {
             )
         )
 
-        models.add(
-            RecyclerAdapter.ViewModel(
-                R.layout.view_examples_icon,
-                1,
-                RecyclerAdapter.ModelType.MIDDLE,
-                Pair(R.drawable.icon_netease_cloud_music, getString(R.string.netease_cloud_music))
-            )
-        )
-
-        adapter.addItems(models)
+        adapter.setItems(models)
 
         adapter.onModelViewBind = { _, viewModel, viewHolder ->
             when (viewModel.layout) {

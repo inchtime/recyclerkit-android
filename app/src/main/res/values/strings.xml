@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">recyclerkit</string>
     <string name="examples">Examples</string>
+    <string name="list">List</string>
     <string name="app_store">App Store</string>
     <string name="dribbble">Dribbble</string>
     <string name="netease_cloud_music">Netease Cloud Music</string>

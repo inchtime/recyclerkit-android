@@ -125,7 +125,6 @@ bintray {
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         issueTrackerUrl = issuesUrl
-        licenses = ["Apache-2.0"]
         publish = true
     }
 }
