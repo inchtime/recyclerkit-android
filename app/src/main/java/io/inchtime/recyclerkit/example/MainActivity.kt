@@ -75,6 +75,20 @@ class MainActivity : BaseActivity() {
 
         adapter.addItems(models)
 
+        adapter.onModelViewBind = { _, viewModel, viewHolder ->
+            when (viewModel.layout) {
+                R.layout.view_examples_icon -> {
+                    val pair = viewModel.value as Pair<*,*>
+                    val icon = pair.first as Int
+                    val title = pair.second as String
+                    val iconImageView = viewHolder.findView<ImageView>(R.id.iconImageView)
+                    val titleTextView = viewHolder.findView<TextView>(R.id.titleTextView)
+                    iconImageView.setImageResource(icon)
+                    titleTextView.text = title
+                }
+            }
+        }
+
     }
 }
 

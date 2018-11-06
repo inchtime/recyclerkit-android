@@ -20,7 +20,7 @@
       android:id="@+id/message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
+      android:layout_marginTop="10dp"
       android:text="@string/oops"
       android:textSize="18sp"
       app:layout_constraintEnd_toEndOf="parent"
