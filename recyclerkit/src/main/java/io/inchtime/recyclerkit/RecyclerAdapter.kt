@@ -64,7 +64,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
     var emptyViewVisibility: Boolean = true
 
-    var emptyViewLayout: Int = R.layout.recyclerkit_view_empty
+    var emptyView: Int = RecyclerKit.emptyView
 
     /**
      * set the items of recycler adapter
@@ -99,7 +99,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): RecyclerView.ViewHolder {
 
         return if (VIEW_TYPE_EMPTY == type) {
-            val view = inflater.inflate(emptyViewLayout, parent, false)
+            val view = inflater.inflate(emptyView, parent, false)
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
             view.visibility = if (emptyViewVisibility) View.VISIBLE else View.INVISIBLE
