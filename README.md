@@ -7,6 +7,11 @@ RecyclerKit is support to use android.support.v7.widget.RecyclerView to display 
 
 RecyclerKit also provide a empty view that you can customized when the recyclerView is empty
 
+Screenshot
+----------
+
+![appstore](https://github.com/inchtime/recyclerkit-android/blob/master/recources/appstore.gif)
+
 Download
 --------
 
@@ -14,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.5.0'
+    implementation 'io.inchtime:recyclerkit:0.5.1'
 }
 ```
 
@@ -24,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
   <type>pom</type>
 </dependency>
 ```

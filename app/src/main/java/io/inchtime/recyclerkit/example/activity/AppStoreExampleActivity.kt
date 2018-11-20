@@ -1,8 +1,13 @@
 package io.inchtime.recyclerkit.example.activity
 
+import android.graphics.Outline
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,13 +17,17 @@ import io.inchtime.recyclerkit.example.R
 import io.inchtime.recyclerkit.example.common.BaseActivity
 import io.inchtime.recyclerkit.example.model.AppStorePrimaryItem
 import io.inchtime.recyclerkit.example.model.AppStoreSecondaryItem
-import kotlinx.android.synthetic.main.activity_appstore.*
+import kotlinx.android.synthetic.main.activity_appstore_example.*
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+
+
 
 class AppStoreExampleActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_appstore)
+        setContentView(R.layout.activity_appstore_example)
         setupRecyclerView()
     }
 
@@ -160,10 +169,15 @@ class AppStoreExampleActivity : BaseActivity() {
         val descTextView = viewHolder.findView<TextView>(R.id.descTextView)
         val imageView = viewHolder.findView<ImageView>(R.id.imageView)
 
+
         categoryTextView.text = item.category
         titleTextView.text = item.title
         descTextView.text = item.desc
-        imageView.setImageResource(item.imageResId)
+
+        val bitmap = BitmapFactory.decodeResource(resources, item.imageResId)
+        val drawable = RoundedBitmapDrawableFactory.create(resources, bitmap)
+        drawable.cornerRadius = 30f
+        imageView.setImageDrawable(drawable)
     }
 
     private fun bindAppStoreSecondary(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {
@@ -225,7 +239,10 @@ class AppStoreExampleActivity : BaseActivity() {
 
     }
 
-    private fun bindAppStoreSecondaryItem(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {
+    private fun bindAppStoreSecondaryItem(
+        viewModel: RecyclerAdapter.ViewModel,
+        viewHolder: RecyclerAdapter.ViewHolder
+    ) {
 
         val item = viewModel.value as AppStoreSecondaryItem
 
@@ -237,6 +254,6 @@ class AppStoreExampleActivity : BaseActivity() {
         titleTextView.text = item.title
         descTextView.text = item.desc
         imageView.setImageResource(item.imageResId)
-        priceButton.text =  if (item.price == 0.0) getString(R.string.get) else String.format("$%.2f", item.price)
+        priceButton.text = if (item.price == 0.0) getString(R.string.get) else String.format("$%.2f", item.price)
     }
 }

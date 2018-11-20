@@ -5,9 +5,7 @@ import android.support.annotation.NonNull
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 
 typealias OnModelViewClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
 typealias OnModelViewLongClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
@@ -64,7 +62,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
     var emptyViewVisibility: Boolean = true
 
-    var emptyView: Int = RecyclerKit.emptyView
+    var emptyView: Int = RecyclerKit.defaultEmptyView
 
     /**
      * set the items of recycler adapter

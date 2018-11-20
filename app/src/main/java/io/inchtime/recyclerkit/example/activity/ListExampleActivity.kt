@@ -9,14 +9,14 @@ import io.inchtime.recyclerkit.RecyclerKit
 import io.inchtime.recyclerkit.example.R
 import io.inchtime.recyclerkit.example.common.BaseActivity
 import io.inchtime.recyclerkit.example.model.AppStoreSecondaryItem
-import kotlinx.android.synthetic.main.activity_appstore.*
+import kotlinx.android.synthetic.main.activity_list_example.*
 
 
 class ListExampleActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_appstore)
+        setContentView(R.layout.activity_list_example)
         setupRecyclerView()
     }
 
@@ -25,32 +25,22 @@ class ListExampleActivity : BaseActivity() {
         val adapter = RecyclerKit.adapter(this)
             .recyclerView(recyclerView)
             .withLinearLayout()
-            .modelViewBind { index, viewModel, viewHolder ->
+            .modelViewBind { _, viewModel, viewHolder ->
                 when (viewModel.layout) {
                     R.layout.view_list_item -> {
-                        bindListItem(index, viewModel, viewHolder)
+                        bindListItem(viewModel, viewHolder)
                     }
                 }
+            }
+            .modelViewClick { index, viewModel ->
+                toast("modelViewClick: index: $index, viewModel: $viewModel")
+            }
+            .modelViewLongClick { index, viewModel ->
+                toast("modelViewLongClick: index: $index, viewModel: $viewModel")
             }
             .build()
 
         val models = ArrayList<RecyclerAdapter.ViewModel>()
-
-        for (index in 0..30) {
-            models.add(
-                RecyclerAdapter.ViewModel(
-                    R.layout.view_list_item,
-                    1,
-                    RecyclerAdapter.ModelType.LEADING_TRAILING,
-                    0
-                )
-            )
-        }
-
-        adapter.setItems(models)
-    }
-
-    private fun bindListItem(index: Int, viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {
 
         val items = arrayListOf(
             AppStoreSecondaryItem(
@@ -67,7 +57,26 @@ class ListExampleActivity : BaseActivity() {
             )
         )
 
-        val item = items[index % 2]
+        for (index in 0..30) {
+
+            val item = items[index % 2]
+
+            models.add(
+                RecyclerAdapter.ViewModel(
+                    R.layout.view_list_item,
+                    1,
+                    RecyclerAdapter.ModelType.LEADING_TRAILING,
+                    item
+                )
+            )
+        }
+
+        adapter.setItems(models)
+    }
+
+    private fun bindListItem(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {
+
+        val item = viewModel.value as AppStoreSecondaryItem
 
         val titleTextView = viewHolder.findView<TextView>(R.id.titleTextView)
         val descTextView = viewHolder.findView<TextView>(R.id.descTextView)
