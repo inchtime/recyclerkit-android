@@ -37,6 +37,6 @@ public class JavaExampleActivity extends AppCompatActivity {
 
     private void display() {
         ArrayList<RecyclerAdapter.ViewModel> items = new ArrayList<>();
-        adapter.setItems(items);
+        adapter.setModels(items);
     }
 }

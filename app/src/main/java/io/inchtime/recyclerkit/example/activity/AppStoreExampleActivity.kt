@@ -1,13 +1,9 @@
 package io.inchtime.recyclerkit.example.activity
 
-import android.graphics.Outline
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,8 +15,6 @@ import io.inchtime.recyclerkit.example.model.AppStorePrimaryItem
 import io.inchtime.recyclerkit.example.model.AppStoreSecondaryItem
 import kotlinx.android.synthetic.main.activity_appstore_example.*
 import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-
 
 
 class AppStoreExampleActivity : BaseActivity() {
@@ -110,7 +104,7 @@ class AppStoreExampleActivity : BaseActivity() {
             )
         )
 
-        adapter.addItems(models)
+        adapter.addModels(models)
     }
 
     private fun bindAppStorePrimary(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {
@@ -156,7 +150,7 @@ class AppStoreExampleActivity : BaseActivity() {
                 )
             )
         }
-        adapter.addItems(models)
+        adapter.addModels(models)
 
     }
 
@@ -235,7 +229,7 @@ class AppStoreExampleActivity : BaseActivity() {
                 )
             )
         }
-        adapter.addItems(models)
+        adapter.addModels(models)
 
     }
 

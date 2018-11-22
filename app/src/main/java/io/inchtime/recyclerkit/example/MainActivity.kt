@@ -72,7 +72,7 @@ class MainActivity : BaseActivity() {
             )
         )
 
-        adapter.setItems(models)
+        adapter.setModels(models)
 
         adapter.onModelViewBind = { _, viewModel, viewHolder ->
             when (viewModel.layout) {

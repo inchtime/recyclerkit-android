@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_list_example.*
 
 class ListExampleActivity : BaseActivity() {
 
+    lateinit var adapter: RecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_example)
@@ -22,7 +24,7 @@ class ListExampleActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
 
-        val adapter = RecyclerKit.adapter(this)
+        adapter = RecyclerKit.adapter(this)
             .recyclerView(recyclerView)
             .withLinearLayout()
             .modelViewBind { _, viewModel, viewHolder ->
@@ -71,7 +73,7 @@ class ListExampleActivity : BaseActivity() {
             )
         }
 
-        adapter.setItems(models)
+        adapter.setModels(models)
     }
 
     private fun bindListItem(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {

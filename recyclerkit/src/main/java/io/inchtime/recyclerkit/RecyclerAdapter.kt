@@ -5,15 +5,17 @@ import android.support.annotation.NonNull
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 typealias OnModelViewClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
 typealias OnModelViewLongClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
 typealias OnModelViewBind = (index: Int, viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) -> Unit
 typealias OnEmptyViewBind = (viewHolder: RecyclerAdapter.EmptyViewHolder) -> Unit
 
-class RecyclerAdapter(private val context: Context, private val spanCount: Int = 1)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, View.OnLongClickListener {
+class RecyclerAdapter(private val context: Context, private val spanCount: Int = 1) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, View.OnLongClickListener {
 
     companion object {
         const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -23,7 +25,9 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         val layout: Int,
         val spanSize: Int,
         val type: ModelType,
-        val value: Any)
+        val value: Any,
+        var selected: Boolean = false
+    )
 
     /**
      * identify the position of item in the items
@@ -46,7 +50,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         }
     }
 
-    private val models = ArrayList<ViewModel>()
+    private val models: MutableList<ViewModel> = ArrayList()
 
     private var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -65,21 +69,42 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     var emptyView: Int = RecyclerKit.defaultEmptyView
 
     /**
-     * set the items of recycler adapter
-     * @param items items to display
+     * set the models of recycler adapter
+     * @param models models to display
      */
-    fun setItems(items: ArrayList<ViewModel>) {
-        models.clear()
-        models.addAll(items)
+    fun setModels(models: List<ViewModel>) {
+        this.models.clear()
+        this.models.addAll(models)
         notifyDataSetChanged()
     }
 
     /**
-     * add the items of recycler adapter
-     * @param items items to add
+     * add the models of recycler adapter
+     * @param models models to add
      */
-    fun addItems(items: ArrayList<ViewModel>) {
-        models.addAll(items)
+    fun addModels(models: List<ViewModel>) {
+        this.models.addAll(models)
+        notifyDataSetChanged()
+    }
+
+    val selectedViewModels: List<ViewModel>
+        get() {
+            return models.filter { viewModel ->
+                viewModel.selected
+            }
+        }
+
+    fun selectAll() {
+        for (model in models) {
+            model.selected = true
+        }
+        notifyDataSetChanged()
+    }
+
+    fun unselectAll() {
+        for (model in models) {
+            model.selected = false
+        }
         notifyDataSetChanged()
     }
 
@@ -130,10 +155,12 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     override fun onClick(view: View) {
+
         val position = recyclerView.getChildAdapterPosition(view)
 
         if (!models.isEmpty() && position >= 0) {
             val model = models[position]
+            model.selected = !model.selected
             onModelViewClick?.invoke(position, model)
         }
     }
@@ -161,7 +188,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
         private val views: SparseArray<View> = SparseArray()
 
-        fun <T: View> findView(key: Int): T {
+        fun <T : View> findView(key: Int): T {
             var v = views[key]
             if (v == null) {
                 v = view.findViewById<T>(key)

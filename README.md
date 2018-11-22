@@ -19,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.5.1'
+    implementation 'io.inchtime:recyclerkit:0.6.0'
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.5.1</version>
+  <version>0.6.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -61,17 +61,24 @@ the RecyclerView will show the empty view.
 then we can add items to the `adapter`:
 
 ```kotlin
-val models = ArrayList<RecyclerAdapter.ViewModel>()
 
-models.add(
-  RecyclerAdapter.ViewModel(R.layout.view_examples_icon,
-  1,  
-  RecyclerAdapter.ModelType.MIDDLE, 
-  Pair(R.drawable.icon_appstore, getString(R.string.app_store))
-  )
+val models = arrayListOf(
+    RecyclerAdapter.ViewModel(
+        R.layout.view_examples_icon,
+        1,
+        RecyclerAdapter.ModelType.MIDDLE,
+        Pair(R.drawable.icon_list, getString(R.string.list))
+    ),
+    RecyclerAdapter.ViewModel(
+        R.layout.view_examples_icon,
+        1,
+        RecyclerAdapter.ModelType.MIDDLE,
+        Pair(R.drawable.icon_appstore, getString(R.string.app_store))
+    )
 )
 
-adapter.addItems(models)
+adapter.setItems(models)
+
 ```
 
 At last, bind the view model:
@@ -98,7 +105,7 @@ TODO
 ------
 
 - [ ] Item animation
-- [ ] Item selection
+- [*] Item selection
 
 Author
 ------
