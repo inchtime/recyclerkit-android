@@ -50,11 +50,11 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         }
     }
 
-    private val models: MutableList<ViewModel> = ArrayList()
+    val viewModels: MutableList<ViewModel> = ArrayList()
 
-    private var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    private lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: RecyclerView
 
     var onModelViewClick: OnModelViewClick? = null
 
@@ -68,13 +68,15 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
     var emptyView: Int = RecyclerKit.defaultEmptyView
 
+    var selectable: Boolean = false
+
     /**
-     * set the models of recycler adapter
+     * set the viewModels of recycler adapter
      * @param models models to display
      */
     fun setModels(models: List<ViewModel>) {
-        this.models.clear()
-        this.models.addAll(models)
+        this.viewModels.clear()
+        this.viewModels.addAll(models)
         notifyDataSetChanged()
     }
 
@@ -83,27 +85,31 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
      * @param models models to add
      */
     fun addModels(models: List<ViewModel>) {
-        this.models.addAll(models)
+        this.viewModels.addAll(models)
         notifyDataSetChanged()
     }
 
     val selectedViewModels: List<ViewModel>
         get() {
-            return models.filter { viewModel ->
+            return viewModels.filter { viewModel ->
                 viewModel.selected
             }
         }
 
+    inline fun <reified T> selectedModels() = viewModels.filter { viewModel ->
+            viewModel.selected
+        }.filterIsInstance<T>()
+
     fun selectAll() {
-        for (model in models) {
-            model.selected = true
+        for (viewModel in viewModels) {
+            viewModel.selected = true
         }
         notifyDataSetChanged()
     }
 
     fun unselectAll() {
-        for (model in models) {
-            model.selected = false
+        for (viewModel in viewModels) {
+            viewModel.selected = false
         }
         notifyDataSetChanged()
     }
@@ -114,9 +120,9 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (models.isEmpty()) {
+        return if (viewModels.isEmpty()) {
             VIEW_TYPE_EMPTY
-        } else models[position].layout
+        } else viewModels[position].layout
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): RecyclerView.ViewHolder {
@@ -126,26 +132,28 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
             view.visibility = if (emptyViewVisibility) View.VISIBLE else View.INVISIBLE
-            EmptyViewHolder(context, view)
+            val viewHolder = EmptyViewHolder(context, view)
+            viewHolder
         } else {
             // type is layout
             // see fun getItemViewType
             val view = inflater.inflate(type, parent, false)
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
-            ViewHolder(context, view)
+            val viewHolder = ViewHolder(context, view)
+            viewHolder
         }
     }
 
     override fun getItemCount(): Int {
-        return if (models.isNotEmpty()) models.size else 1
+        return if (viewModels.isNotEmpty()) viewModels.size else 1
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
         if (viewHolder is ViewHolder) {
-            val model = models[position]
-            onModelViewBind?.invoke(position, model, viewHolder)
+            val viewModel = viewModels[position]
+            onModelViewBind?.invoke(position, viewModel, viewHolder)
         }
 
         if (viewHolder is EmptyViewHolder) {
@@ -158,18 +166,31 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
         val position = recyclerView.getChildAdapterPosition(view)
 
-        if (!models.isEmpty() && position >= 0) {
-            val model = models[position]
-            model.selected = !model.selected
-            onModelViewClick?.invoke(position, model)
+        if (!viewModels.isEmpty() && position >= 0) {
+
+            val viewModel = viewModels[position]
+
+            if (selectable) {
+                // rebind view model
+                viewModel.selected = !viewModel.selected
+                val viewHolder = recyclerView.getChildViewHolder(view)
+                if (viewHolder is ViewHolder) {
+                    onModelViewBind?.invoke(position, viewModel, viewHolder)
+                }
+                if (viewHolder is EmptyViewHolder) {
+                    onEmptyViewBind?.invoke(viewHolder)
+                }
+            }
+
+            onModelViewClick?.invoke(position, viewModel)
         }
     }
 
     override fun onLongClick(view: View): Boolean {
         val position = recyclerView.getChildAdapterPosition(view)
 
-        if (!models.isEmpty() && position >= 0) {
-            val model = models[position]
+        if (!viewModels.isEmpty() && position >= 0) {
+            val model = viewModels[position]
             onModelViewLongClick?.invoke(position, model)
         }
         return true
@@ -179,7 +200,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         return object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 // empty spanCount must equal to GridLayoutManager's spanCount
-                return if (models.isEmpty()) spanCount else models[position].spanSize
+                return if (viewModels.isEmpty()) spanCount else viewModels[position].spanSize
             }
         }
     }

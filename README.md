@@ -19,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.6.0'
+    implementation 'io.inchtime:recyclerkit:0.6.2'
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.6.0</version>
+  <version>0.6.2</version>
   <type>pom</type>
 </dependency>
 ```
@@ -77,7 +77,7 @@ val models = arrayListOf(
     )
 )
 
-adapter.setItems(models)
+adapter.setModels(models)
 
 ```
 
@@ -105,7 +105,7 @@ TODO
 ------
 
 - [ ] Item animation
-- [*] Item selection
+- [x] Item selection
 
 Author
 ------

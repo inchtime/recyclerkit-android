@@ -27,18 +27,20 @@ class ListExampleActivity : BaseActivity() {
         adapter = RecyclerKit.adapter(this)
             .recyclerView(recyclerView)
             .withLinearLayout()
-            .modelViewBind { _, viewModel, viewHolder ->
+            .selectable(true)
+            .modelViewBind { index, viewModel, viewHolder ->
                 when (viewModel.layout) {
                     R.layout.view_list_item -> {
                         bindListItem(viewModel, viewHolder)
                     }
                 }
+//                toast("modelViewBind: index: $index, viewModel: $viewModel")
             }
             .modelViewClick { index, viewModel ->
                 toast("modelViewClick: index: $index, viewModel: $viewModel")
             }
             .modelViewLongClick { index, viewModel ->
-                toast("modelViewLongClick: index: $index, viewModel: $viewModel")
+//                toast("modelViewLongClick: index: $index, viewModel: $viewModel")
             }
             .build()
 

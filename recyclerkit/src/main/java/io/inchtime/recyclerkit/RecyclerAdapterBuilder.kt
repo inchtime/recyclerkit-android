@@ -40,6 +40,11 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         return this
     }
 
+    fun selectable(selectable: Boolean): RecyclerAdapterBuilder {
+        adapter.selectable = selectable
+        return this
+    }
+
     fun modelViewBind(listener: OnModelViewBind): RecyclerAdapterBuilder {
         adapter.onModelViewBind = listener
         return this
