@@ -50,6 +50,11 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         }
     }
 
+    enum class SelectionType {
+        SINGLE,
+        MULTI
+    }
+
     val viewModels: MutableList<ViewModel> = ArrayList()
 
     val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -70,6 +75,8 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
     var selectable: Boolean = false
 
+    var selectionType: SelectionType = SelectionType.SINGLE
+
     /**
      * set the viewModels of recycler adapter
      * @param models models to display
@@ -89,6 +96,9 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         notifyDataSetChanged()
     }
 
+    /**
+     * @return List<ViewModel> viewModel.value Type is Any
+     */
     val selectedViewModels: List<ViewModel>
         get() {
             return viewModels.filter { viewModel ->
@@ -96,9 +106,15 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
             }
         }
 
+    inline fun <reified T> selectedViewModels() = viewModels.filter { viewModel ->
+        viewModel.selected && viewModel.value is T
+    }
+
     inline fun <reified T> selectedModels() = viewModels.filter { viewModel ->
-            viewModel.selected
-        }.filterIsInstance<T>()
+        viewModel.selected && viewModel.value is T
+    }.map { viewModel ->
+        viewModel.value as T
+    }
 
     fun selectAll() {
         for (viewModel in viewModels) {
@@ -107,7 +123,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         notifyDataSetChanged()
     }
 
-    fun unselectAll() {
+    fun deselectAll() {
         for (viewModel in viewModels) {
             viewModel.selected = false
         }
@@ -172,14 +188,22 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
 
             if (selectable) {
                 // rebind view model
+                if (selectionType == SelectionType.SINGLE) {
+                    for ((index, model) in viewModels.withIndex()) {
+                        if (model == viewModel) continue
+                        if (model.selected) {
+                            model.selected = false
+                            val viewHolder = recyclerView.findViewHolderForAdapterPosition(index)
+                            viewHolder?.let {
+                                onBindViewHolder(it, index)
+                            }
+                        }
+                    }
+                }
+
                 viewModel.selected = !viewModel.selected
                 val viewHolder = recyclerView.getChildViewHolder(view)
-                if (viewHolder is ViewHolder) {
-                    onModelViewBind?.invoke(position, viewModel, viewHolder)
-                }
-                if (viewHolder is EmptyViewHolder) {
-                    onEmptyViewBind?.invoke(viewHolder)
-                }
+                onBindViewHolder(viewHolder, position)
             }
 
             onModelViewClick?.invoke(position, viewModel)

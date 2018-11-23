@@ -40,8 +40,9 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         return this
     }
 
-    fun selectable(selectable: Boolean): RecyclerAdapterBuilder {
+    fun selectable(selectable: Boolean, selectionType: RecyclerAdapter.SelectionType = RecyclerAdapter.SelectionType.SINGLE): RecyclerAdapterBuilder {
         adapter.selectable = selectable
+        adapter.selectionType = selectionType
         return this
     }
 

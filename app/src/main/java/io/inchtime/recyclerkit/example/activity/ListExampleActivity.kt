@@ -1,6 +1,7 @@
 package io.inchtime.recyclerkit.example.activity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,17 +28,22 @@ class ListExampleActivity : BaseActivity() {
         adapter = RecyclerKit.adapter(this)
             .recyclerView(recyclerView)
             .withLinearLayout()
-            .selectable(true)
+            .selectable(true, RecyclerAdapter.SelectionType.MULTI)
             .modelViewBind { index, viewModel, viewHolder ->
                 when (viewModel.layout) {
                     R.layout.view_list_item -> {
-                        bindListItem(viewModel, viewHolder)
+                        bindListItem(viewModel, viewHolder, true)
                     }
                 }
 //                toast("modelViewBind: index: $index, viewModel: $viewModel")
             }
             .modelViewClick { index, viewModel ->
-                toast("modelViewClick: index: $index, viewModel: $viewModel")
+//                toast("modelViewClick: index: $index, viewModel: $viewModel")
+                val sms = adapter.selectedModels<AppStoreSecondaryItem>()
+                val svmd = adapter.selectedViewModels<AppStoreSecondaryItem>()
+
+                toast(adapter.selectedModels<AppStoreSecondaryItem>().size.toString())
+                toast(adapter.selectedViewModels.size.toString())
             }
             .modelViewLongClick { index, viewModel ->
 //                toast("modelViewLongClick: index: $index, viewModel: $viewModel")
@@ -78,7 +84,7 @@ class ListExampleActivity : BaseActivity() {
         adapter.setModels(models)
     }
 
-    private fun bindListItem(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder) {
+    private fun bindListItem(viewModel: RecyclerAdapter.ViewModel, viewHolder: RecyclerAdapter.ViewHolder, enableSelection: Boolean = false) {
 
         val item = viewModel.value as AppStoreSecondaryItem
 
@@ -86,11 +92,18 @@ class ListExampleActivity : BaseActivity() {
         val descTextView = viewHolder.findView<TextView>(R.id.descTextView)
         val imageView = viewHolder.findView<ImageView>(R.id.imageView)
         val priceButton = viewHolder.findView<Button>(R.id.priceButton)
+        val checkImageView = viewHolder.findView<ImageView>(R.id.checkImageView)
 
         titleTextView.text = item.title
         descTextView.text = item.desc
         imageView.setImageResource(item.imageResId)
         priceButton.text =  if (item.price == 0.0) getString(R.string.get) else String.format("$%.2f", item.price)
+
+        if (!enableSelection) {
+            checkImageView.visibility = View.INVISIBLE
+        } else {
+            checkImageView.visibility = if (viewModel.selected) View.VISIBLE else View.INVISIBLE
+        }
 
     }
 }
