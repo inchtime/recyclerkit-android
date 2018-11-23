@@ -10,7 +10,7 @@ RecyclerKit also provide a empty view that you can customized when the recyclerV
 Screenshot
 ----------
 
-![appstore](https://github.com/inchtime/recyclerkit-android/blob/master/recources/appstore.gif)
+![appstore](https://github.com/inchtime/recyclerkit-android/blob/master/recourse/appstore.gif)
 
 Download
 --------
