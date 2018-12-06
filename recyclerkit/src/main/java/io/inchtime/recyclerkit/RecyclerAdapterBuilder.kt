@@ -44,6 +44,7 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
     fun withStaggeredGridLayout(orientation: Int = StaggeredGridLayoutManager.VERTICAL): RecyclerAdapterBuilder {
         if (recyclerView == null) throw Exception("please call recyclerView() function first")
         val layoutManager = StaggeredGridLayoutManager(spanCount, orientation)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         recyclerView?.layoutManager = layoutManager
         return this
     }
