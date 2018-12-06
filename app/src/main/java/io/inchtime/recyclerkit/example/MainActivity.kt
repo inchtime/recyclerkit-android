@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.inchtime.recyclerkit.RecyclerAdapter
 import io.inchtime.recyclerkit.RecyclerKit
-import io.inchtime.recyclerkit.example.activity.AppStoreExampleActivity
+import io.inchtime.recyclerkit.example.activity.AppStoreJavaExampleActivity
 import io.inchtime.recyclerkit.example.activity.ListExampleActivity
 import io.inchtime.recyclerkit.example.common.BaseActivity
 
@@ -50,7 +50,7 @@ class MainActivity : BaseActivity() {
                         startActivity(Intent(this, ListExampleActivity::class.java))
                     }
                     R.drawable.icon_appstore -> {
-                        startActivity(Intent(this, AppStoreExampleActivity::class.java))
+                        startActivity(Intent(this, AppStoreJavaExampleActivity::class.java))
                     }
                 }
                 return@modelViewClick

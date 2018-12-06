@@ -94,6 +94,26 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     fun addModels(models: List<ViewModel>) {
         this.viewModels.addAll(models)
         notifyDataSetChanged()
+
+    }
+
+    /**
+     * remove and notify
+     * @param model model to remove
+     */
+    fun removeModel(model: ViewModel) {
+        val index = this.viewModels.indexOf(model)
+        this.viewModels.removeAt(index)
+        this.notifyItemRemoved(index)
+    }
+
+    /**
+     * remove and notify
+     * @param index model index to remove
+     */
+    fun removeModelAt(index: Int) {
+        this.viewModels.removeAt(index)
+        this.notifyItemRemoved(index)
     }
 
     /**
@@ -156,7 +176,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
             val view = inflater.inflate(type, parent, false)
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
-            val viewHolder = ViewHolder(context, view)
+            val viewHolder = ViewHolder(context, this, view)
             viewHolder
         }
     }
@@ -229,7 +249,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         }
     }
 
-    class ViewHolder(val context: Context, val view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(val context: Context, val adapter: RecyclerAdapter, val view: View) : RecyclerView.ViewHolder(view) {
 
         private val views: SparseArray<View> = SparseArray()
 

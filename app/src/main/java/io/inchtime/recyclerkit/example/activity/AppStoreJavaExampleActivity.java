@@ -278,7 +278,10 @@ public class AppStoreJavaExampleActivity extends AppCompatActivity {
         descTextView.setText(item.getDesc());
         imageView.setImageResource(item.getImageResId());
         priceButton.setText(item.getPrice() == 0.0 ?
-                getString(R.string.get) : String.format("$%.2f", item.getPrice())
-                );
+                getString(R.string.get) : String.format("$%.2f", item.getPrice()));
+
+        priceButton.setOnClickListener(v -> {
+            viewHolder.getAdapter().removeModel(viewModel);
+        });
     }
 }
