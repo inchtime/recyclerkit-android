@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import java.lang.Exception
 
 class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
@@ -36,6 +37,13 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         if (recyclerView == null) throw Exception("please call recyclerView() function first")
         val layoutManager = GridLayoutManager(context, spanCount, orientation, reverse)
         layoutManager.spanSizeLookup = adapter.getSpanSizeLookup()
+        recyclerView?.layoutManager = layoutManager
+        return this
+    }
+
+    fun withStaggeredGridLayout(orientation: Int = StaggeredGridLayoutManager.VERTICAL): RecyclerAdapterBuilder {
+        if (recyclerView == null) throw Exception("please call recyclerView() function first")
+        val layoutManager = StaggeredGridLayoutManager(spanCount, orientation)
         recyclerView?.layoutManager = layoutManager
         return this
     }
