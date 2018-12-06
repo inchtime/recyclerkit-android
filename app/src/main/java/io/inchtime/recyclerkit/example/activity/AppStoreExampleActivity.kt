@@ -15,6 +15,7 @@ import io.inchtime.recyclerkit.example.model.AppStorePrimaryItem
 import io.inchtime.recyclerkit.example.model.AppStoreSecondaryItem
 import kotlinx.android.synthetic.main.activity_appstore_example.*
 import android.graphics.BitmapFactory
+import android.support.v7.widget.GridLayoutManager
 
 
 class AppStoreExampleActivity : BaseActivity() {
@@ -180,7 +181,7 @@ class AppStoreExampleActivity : BaseActivity() {
 
         val adapter = RecyclerKit.adapter(this, 2)
             .recyclerView(pRecyclerView)
-            .withGridLayout(LinearLayoutManager.HORIZONTAL)
+            .withGridLayout(GridLayoutManager.HORIZONTAL)
             .modelViewBind { _, pViewModel, pViewHolder ->
                 when (pViewModel.layout) {
                     R.layout.view_app_store_secondary_item -> {

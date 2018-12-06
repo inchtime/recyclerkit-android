@@ -32,7 +32,7 @@
                 android:theme="@style/AppTheme"/>
 
         <activity
-                android:name=".activity.JavaExampleActivity"
+                android:name=".activity.AppStoreJavaExampleActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme"/>
 

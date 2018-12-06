@@ -40,7 +40,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         LEADING_TRAILING(0x05);
 
         companion object {
-            fun valueOf(index: Int, @NonNull list: List<*>): ModelType {
+            fun valueOf(index: Int, @NonNull list: Collection<*>): ModelType {
                 if (index < 0) throw IndexOutOfBoundsException()
                 if (list.size <= 1) return LEADING_TRAILING
                 if (index == 0) return LEADING

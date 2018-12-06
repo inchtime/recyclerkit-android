@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_list_example.*
 
 class ListExampleActivity : BaseActivity() {
 
-    lateinit var adapter: RecyclerAdapter
+    private lateinit var adapter: RecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
