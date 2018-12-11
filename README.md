@@ -10,7 +10,7 @@ RecyclerKit also provide a empty view that you can customized when the recyclerV
 Screenshot
 ----------
 
-![appstore](https://github.com/inchtime/recyclerkit-android/blob/master/recourse/appstore.gif)
+![AppStore](https://github.com/inchtime/recyclerkit-android/blob/master/recourse/appstore.gif)
 
 Download
 --------
@@ -19,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.6.5'
+    implementation 'io.inchtime:recyclerkit:0.6.6'
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.6.5</version>
+  <version>0.6.6</version>
   <type>pom</type>
 </dependency>
 ```
@@ -104,8 +104,8 @@ Detail [example][1]
 TODO
 ------
 
-- [ ] Item animation
 - [x] Item selection (single & multi)
+- [ ] Empty view with multi-types e.g. (empty, loading, network error)
 
 Author
 ------

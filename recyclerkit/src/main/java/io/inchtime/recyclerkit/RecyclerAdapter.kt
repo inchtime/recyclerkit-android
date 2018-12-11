@@ -55,11 +55,11 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
         MULTI
     }
 
-    val viewModels: MutableList<ViewModel> = ArrayList()
-
-    val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     lateinit var recyclerView: RecyclerView
+
+    val viewModels: MutableList<ViewModel> = ArrayList()
 
     var onModelViewClick: OnModelViewClick? = null
 
@@ -84,7 +84,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     fun setModels(models: List<ViewModel>) {
         this.viewModels.clear()
         this.viewModels.addAll(models)
-        notifyDataSetChanged()
+        this.notifyDataSetChanged()
     }
 
     /**
@@ -93,8 +93,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
      */
     fun addModels(models: List<ViewModel>) {
         this.viewModels.addAll(models)
-        notifyDataSetChanged()
-
+        this.notifyDataSetChanged()
     }
 
     /**
@@ -121,8 +120,13 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     /**
-     * @return List<ViewModel> viewModel.value Type is Any
+     * clear all models
      */
+    fun clearModels() {
+        this.viewModels.clear()
+        this.notifyDataSetChanged()
+    }
+
     val selectedViewModels: List<ViewModel>
         get() {
             return viewModels.filter { viewModel ->
@@ -217,6 +221,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
                         if (model == viewModel) continue
                         if (model.selected) {
                             model.selected = false
+//                            notifyItemChanged(index)
                             val viewHolder = recyclerView.findViewHolderForAdapterPosition(index)
                             viewHolder?.let {
                                 onBindViewHolder(it, index)
@@ -225,6 +230,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
                     }
                 }
 
+//                notifyItemChanged(position)
                 viewModel.selected = !viewModel.selected
                 val viewHolder = recyclerView.getChildViewHolder(view)
                 onBindViewHolder(viewHolder, position)
@@ -266,6 +272,8 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
             @Suppress("UNCHECKED_CAST")
             return v as T
         }
+
+
     }
 
     class EmptyViewHolder(val context: Context, val view: View) : RecyclerView.ViewHolder(view)

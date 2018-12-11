@@ -48,7 +48,12 @@ public class AppStoreJavaExampleActivity extends AppCompatActivity {
                     }
                     return Unit.INSTANCE;
                 })
+                .emptyViewBind((emptyViewHolder -> {
+                    return Unit.INSTANCE;
+                }))
                 .build();
+
+        adapter.setEmptyView(R.layout.recyclerkit_view_empty);
 
         List<RecyclerAdapter.ViewModel> models = new ArrayList<>();
 
@@ -183,7 +188,6 @@ public class AppStoreJavaExampleActivity extends AppCompatActivity {
         TextView titleTextView = viewHolder.findView(R.id.titleTextView);
         TextView descTextView = viewHolder.findView(R.id.descTextView);
         ImageView imageView = viewHolder.findView(R.id.imageView);
-
 
         categoryTextView.setText(item.getCategory());
         titleTextView.setText(item.getTitle());

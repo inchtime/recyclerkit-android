@@ -39,11 +39,6 @@ class ListExampleActivity : BaseActivity() {
             }
             .modelViewClick { index, viewModel ->
 //                toast("modelViewClick: index: $index, viewModel: $viewModel")
-                val sms = adapter.selectedModels<AppStoreSecondaryItem>()
-                val svmd = adapter.selectedViewModels<AppStoreSecondaryItem>()
-
-                toast(adapter.selectedModels<AppStoreSecondaryItem>().size.toString())
-                toast(adapter.selectedViewModels.size.toString())
             }
             .modelViewLongClick { index, viewModel ->
 //                toast("modelViewLongClick: index: $index, viewModel: $viewModel")

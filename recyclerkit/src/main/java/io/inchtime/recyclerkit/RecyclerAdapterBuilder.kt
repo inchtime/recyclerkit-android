@@ -26,6 +26,16 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         return this
     }
 
+    /**
+     * set a generic or customer layoutManager to recyclerView
+     * @param layoutManager Generic LayoutManager
+     */
+    fun withLayoutManager(layoutManager: RecyclerView.LayoutManager): RecyclerAdapterBuilder {
+        if (recyclerView == null) throw Exception("please call recyclerView() function first")
+        recyclerView?.layoutManager = layoutManager
+        return this
+    }
+
     fun withLinearLayout(orientation: Int = LinearLayoutManager.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
         if (recyclerView == null) throw Exception("please call recyclerView() function first")
         val layoutManager = LinearLayoutManager(context, orientation, reverse)
