@@ -99,12 +99,23 @@ adapter.onModelViewBind = { _, viewModel, viewHolder ->
 }
 ```
 
-Detail [example][1]
+Examples
+------
+
+[App Store Example By Java][1]
+
+[App Store Example By Kotlin][2]
+
+Features
+------
+- Item operations (set, add, get, remove, replace, clear)
+- Item selection (single & multi)
+- Item click and long click
+- Any layout manager
+- Default empty view
 
 TODO
 ------
-
-- [x] Item selection (single & multi)
 - [ ] Empty view with multi-types e.g. (empty, loading, network error)
 
 Author
@@ -121,7 +132,9 @@ email: evan-cai@live.cn
 License
 -------
 
-Apache 2.0. See the [LICENSE][2] file for details.
+Apache 2.0. See the [LICENSE][4] file for details.
 
-[1]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/MainActivity.kt
-[2]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE
+[1]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreJavaExampleActivity.java
+[2]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreExampleActivity.kt
+[3]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE
+

@@ -97,8 +97,8 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     /**
-     * remove and notify
-     * @param model model to remove
+     * remove model and notify
+     * @param model model to be removed
      */
     fun removeModel(model: ViewModel) {
         val index = this.viewModels.indexOf(model)
@@ -109,13 +109,25 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     /**
-     * remove and notify
-     * @param index model index to remove
+     * remove model and notify
+     * @param index model index to be removed
      */
     fun removeModelAt(index: Int) {
         if (index >= 0 && index < this.viewModels.size) {
             this.viewModels.removeAt(index)
             this.notifyItemRemoved(index)
+        }
+    }
+
+    /**
+     * replace the model and notify
+     * @param index model index to be replaced
+     * @param viewModel the new model
+     */
+    fun replaceModel(index: Int, viewModel: ViewModel) {
+        if (index >= 0 && index < this.viewModels.size) {
+            this.viewModels[index] = viewModel
+            this.notifyItemChanged(index)
         }
     }
 
