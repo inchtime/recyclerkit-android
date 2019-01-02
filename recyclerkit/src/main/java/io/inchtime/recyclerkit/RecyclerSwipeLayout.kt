@@ -580,13 +580,15 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
 
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
 
-            if (!isOpen) {
+            if (isInMainView(e!!)) {
                 performClick()
-            } else {
+            }
+
+            post {
                 close(true)
             }
 
-            return super.onSingleTapUp(e)
+            return false
         }
     }
 

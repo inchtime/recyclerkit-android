@@ -3,6 +3,7 @@ package io.inchtime.recyclerkit.example.activity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import io.inchtime.recyclerkit.RecyclerAdapter
@@ -33,6 +34,17 @@ class ListExampleActivity : BaseActivity() {
                 when (viewModel.layout) {
                     R.layout.view_list_item -> {
                         bindListItem(viewModel, viewHolder, true)
+
+                        val editButton = viewHolder.findView<ImageButton>(R.id.editButton)
+                        val deleteButton = viewHolder.findView<ImageButton>(R.id.deleteButton)
+
+                        editButton.setOnClickListener {
+                            toast("edit")
+                        }
+                        deleteButton.setOnClickListener {
+                            toast("edit")
+                        }
+
                     }
                 }
 //                toast("modelViewBind: index: $index, viewModel: $viewModel")

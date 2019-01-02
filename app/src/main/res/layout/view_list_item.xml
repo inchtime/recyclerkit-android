@@ -20,7 +20,7 @@
             android:paddingEnd="20dp">
 
             <ImageButton
-                android:id="@+id/info_button"
+                android:id="@+id/editButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@null"
@@ -28,7 +28,7 @@
                 android:text="Edit" />
 
             <ImageButton
-                android:id="@+id/edit_button"
+                android:id="@+id/deleteButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@null"

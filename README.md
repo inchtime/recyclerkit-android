@@ -19,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.7.0'
+    implementation 'io.inchtime:recyclerkit:0.7.1'
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.7.0</version>
+  <version>0.7.1</version>
   <type>pom</type>
 </dependency>
 ```
