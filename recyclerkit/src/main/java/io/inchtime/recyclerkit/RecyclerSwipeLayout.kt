@@ -185,7 +185,7 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        if (isDragLocked()) {
+        if (!swipeable) {
             return super.onInterceptTouchEvent(ev)
         }
 
@@ -446,19 +446,7 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
         ViewCompat.postInvalidateOnAnimation(this)
     }
 
-    /**
-     * @return true if the drag/swipe motion is currently locked.
-     */
-    fun isDragLocked(): Boolean {
-        return mLockDrag
-    }
-
-    /**
-     * @return Set true for lock the swipe.
-     */
-    fun dragLock(drag: Boolean?) {
-        this.mLockDrag = drag!!
-    }
+    var swipeable: Boolean = true
 
     private fun getMainOpenLeft(): Int {
         return when (mDragEdge) {
@@ -585,6 +573,12 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
             }
 
             return false
+        }
+
+        override fun onSingleTapUp(e: MotionEvent?): Boolean {
+            close(true)
+            performClick()
+            return super.onSingleTapUp(e)
         }
     }
 

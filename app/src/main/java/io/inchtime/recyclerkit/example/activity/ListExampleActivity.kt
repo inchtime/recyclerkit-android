@@ -38,7 +38,7 @@ class ListExampleActivity : BaseActivity() {
 //                toast("modelViewBind: index: $index, viewModel: $viewModel")
             }
             .modelViewClick { index, viewModel ->
-//                toast("modelViewClick: index: $index, viewModel: $viewModel")
+                toast("modelViewClick: index: $index, viewModel: $viewModel")
             }
             .modelViewLongClick { index, viewModel ->
 //                toast("modelViewLongClick: index: $index, viewModel: $viewModel")
