@@ -7,8 +7,6 @@
     <string name="netease_cloud_music">Netease Cloud Music</string>
     <string name="get">Get</string>
 
-    <string name="app_store_category_1">主打推荐</string>
-    <string name="app_store_category_2">重磅更新</string>
     <string name="app_store_title_1">双子传说</string>
     <string name="app_store_title_2">漫威：未来之战</string>
     <string name="app_store_title_3">部落冲突：皇室战争</string>
@@ -17,5 +15,11 @@
     <string name="app_store_desc_2">新角色：牌皇、夜行者和哨兵</string>
     <string name="app_store_desc_3">部落战隆重登场！</string>
     <string name="app_store_desc_4">最佳小鸟弹弓游戏</string>
+
+    <string-array name="app_store_category">
+        <item>主打推荐</item>
+        <item>重磅更新</item>
+    </string-array>
+
 
 </resources>

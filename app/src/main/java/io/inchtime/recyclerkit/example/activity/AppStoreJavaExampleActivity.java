@@ -145,9 +145,11 @@ public class AppStoreJavaExampleActivity extends AppCompatActivity {
 
         List<AppStorePrimaryItem> items = new ArrayList<>();
 
+        String[] categories = getResources().getStringArray(R.array.app_store_category);
+
         items.add(
                 new AppStorePrimaryItem(
-                        getString(R.string.app_store_category_1),
+                        categories[0],
                         getString(R.string.app_store_title_1),
                         getString(R.string.app_store_desc_1),
                         R.drawable.app_store_brothers
@@ -156,7 +158,7 @@ public class AppStoreJavaExampleActivity extends AppCompatActivity {
 
         items.add(
                 new AppStorePrimaryItem(
-                        getString(R.string.app_store_category_2),
+                        categories[1],
                         getString(R.string.app_store_title_2),
                         getString(R.string.app_store_desc_2),
                         R.drawable.app_store_marvel_future_fight

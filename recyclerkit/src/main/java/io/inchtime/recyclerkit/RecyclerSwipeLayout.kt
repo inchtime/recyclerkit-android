@@ -62,11 +62,12 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
      */
     private var mMinDistRequestDisallowParent = 0
 
-    private var mIsOpenBeforeInit = false
+    private var isOpenBeforeInit = false
+
+    private var isOpen = false
+
     @Volatile
-    private var mIsScrolling = false
-    @Volatile
-    private var mLockDrag = false
+    private var isScrolling = false
 
     private var mMinFlingVelocity = DEFAULT_MIN_FLING_VELOCITY
     private var mMode = MODE_NORMAL
@@ -79,10 +80,12 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
     private var mDragHelper: ViewDragHelper? = null
     private var mGestureDetector: GestureDetectorCompat? = null
 
+    var swipeable: Boolean = true
+
     private var mDragHelperCallback = object : ViewDragHelper.Callback() {
         override fun tryCaptureView(child: View, pointerId: Int): Boolean {
 
-            if (mLockDrag)
+            if (!swipeable)
                 return false
 
             mDragHelper!!.captureChildView(mMainView!!, pointerId)
@@ -139,7 +142,7 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
         override fun onEdgeDragStarted(edgeFlags: Int, pointerId: Int) {
             super.onEdgeDragStarted(edgeFlags, pointerId)
 
-            if (mLockDrag) {
+            if (!swipeable) {
                 return
             }
 
@@ -195,7 +198,7 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
 
         val couldBecomeClick = couldBecomeClick(ev)
         val settling = mDragHelper!!.viewDragState == ViewDragHelper.STATE_SETTLING
-        val idleAfterScrolled = mDragHelper!!.viewDragState == ViewDragHelper.STATE_IDLE && mIsScrolling
+        val idleAfterScrolled = mDragHelper!!.viewDragState == ViewDragHelper.STATE_IDLE && isScrolling
 
         // must be placed as the last statement
         mPrevX = ev.x
@@ -292,7 +295,7 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
 
         initRects()
 
-        if (mIsOpenBeforeInit) {
+        if (isOpenBeforeInit) {
             open(false)
         } else {
             close(false)
@@ -394,7 +397,8 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
      * Open the panel to show the secondary view
      */
     fun open(animation: Boolean) {
-        mIsOpenBeforeInit = true
+        isOpenBeforeInit = true
+        isOpen = true
 
         if (animation) {
             mDragHelper!!.smoothSlideViewTo(mMainView!!, mRectMainOpen.left, mRectMainOpen.top)
@@ -423,7 +427,8 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
      * Close the panel to hide the secondary view
      */
     fun close(animation: Boolean) {
-        mIsOpenBeforeInit = false
+        isOpenBeforeInit = false
+        isOpen = false
 
         if (animation) {
             mDragHelper!!.smoothSlideViewTo(mMainView!!, mRectMainClose.left, mRectMainClose.top)
@@ -445,8 +450,6 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
 
         ViewCompat.postInvalidateOnAnimation(this)
     }
-
-    var swipeable: Boolean = true
 
     private fun getMainOpenLeft(): Int {
         return when (mDragEdge) {
@@ -542,18 +545,18 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
         var hasDisallowed = false
 
         override fun onDown(e: MotionEvent): Boolean {
-            mIsScrolling = false
+            isScrolling = false
             hasDisallowed = false
             return true
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            mIsScrolling = true
+            isScrolling = true
             return false
         }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            mIsScrolling = true
+            isScrolling = true
 
             if (parent != null) {
                 val shouldDisallow: Boolean
@@ -576,8 +579,13 @@ class RecyclerSwipeLayout constructor(context: Context, attrs: AttributeSet?, de
         }
 
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
-            close(true)
-            performClick()
+
+            if (!isOpen) {
+                performClick()
+            } else {
+                close(true)
+            }
+
             return super.onSingleTapUp(e)
         }
     }

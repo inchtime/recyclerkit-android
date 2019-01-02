@@ -19,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.6.8'
+    implementation 'io.inchtime:recyclerkit:0.7.0'
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.6.8</version>
+  <version>0.7.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -102,21 +102,22 @@ adapter.onModelViewBind = { _, viewModel, viewHolder ->
 Examples
 ------
 
-[App Store Example By Java][1]
+[App Store Example By Java][AppStoreExampleJava]
 
-[App Store Example By Kotlin][2]
+[App Store Example By Kotlin][AppStoreExampleKotlin]
 
 Features
 ------
 - Item operations (set, add, get, remove, replace, clear)
 - Item selection (single & multi)
 - Item click and long click
+- Swipeable items
 - Any layout manager
 - Default empty view
 
 TODO
 ------
-- [ ] Empty view with multi-types e.g. (empty, loading, network error)
+- [ ] Empty view with multi types e.g. (empty, loading, network error)
 
 Author
 ------
@@ -132,9 +133,9 @@ email: evan-cai@live.cn
 License
 -------
 
-Apache 2.0. See the [LICENSE][4] file for details.
+Apache 2.0. See the [LICENSE][license] file for details.
 
-[1]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreJavaExampleActivity.java
-[2]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreExampleActivity.kt
-[3]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE
+[AppStoreExampleJava]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreJavaExampleActivity.java
+[AppStoreExampleKotlin]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreExampleActivity.kt
+[license]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE
 

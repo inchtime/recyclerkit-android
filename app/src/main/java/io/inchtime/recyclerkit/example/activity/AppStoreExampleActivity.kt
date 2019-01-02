@@ -124,15 +124,17 @@ class AppStoreExampleActivity : BaseActivity() {
             }
             .build()
 
+        val categories = resources.getStringArray(R.array.app_store_category)
+
         val items = arrayListOf(
             AppStorePrimaryItem(
-                getString(R.string.app_store_category_1),
+                categories[0],
                 getString(R.string.app_store_title_1),
                 getString(R.string.app_store_desc_1),
                 R.drawable.app_store_brothers
             ),
             AppStorePrimaryItem(
-                getString(R.string.app_store_category_2),
+                categories[1],
                 getString(R.string.app_store_title_2),
                 getString(R.string.app_store_desc_2),
                 R.drawable.app_store_marvel_future_fight
