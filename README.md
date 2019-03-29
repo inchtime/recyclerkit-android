@@ -139,4 +139,4 @@ And [996ICU][996icu].
 [AppStoreExampleJava]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreJavaExampleActivity.java
 [AppStoreExampleKotlin]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreExampleActivity.kt
 [license]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE
-[996icu]: https://raw.githubusercontent.com/996icu/996.ICU/master/LICENSE.996icu.zh-hans
+[996icu]: https://github.com/996icu/996.ICU/blob/master/LICENSE.996icu.zh-hans
