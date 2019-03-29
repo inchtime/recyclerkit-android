@@ -133,10 +133,8 @@ email: evan-cai@live.cn
 License
 -------
 
-Apache 2.0. See the [LICENSE][license] file for details.
-And [996ICU][996icu].
+[996ICU][996icu].
 
 [AppStoreExampleJava]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreJavaExampleActivity.java
 [AppStoreExampleKotlin]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreExampleActivity.kt
-[license]: https://github.com/inchtime/recyclerkit-android/blob/master/LICENSE
-[996icu]: https://github.com/996icu/996.ICU/blob/master/LICENSE.996icu.zh-hans
+[996icu]: https://github.com/996icu/996.ICU/blob/master/licenses%5BWIP%5D/LICENSE-MIT-996
