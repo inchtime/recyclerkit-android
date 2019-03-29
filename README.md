@@ -133,8 +133,9 @@ email: evan-cai@live.cn
 License
 -------
 
-[996ICU][996icu].
+[MIT][MIT] with [996ICU][996icu].
 
 [AppStoreExampleJava]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreJavaExampleActivity.java
 [AppStoreExampleKotlin]: https://github.com/inchtime/recyclerkit-android/blob/master/app/src/main/java/io/inchtime/recyclerkit/example/activity/AppStoreExampleActivity.kt
+[MIT]: https://opensource.org/licenses/MIT
 [996icu]: https://github.com/996icu/996.ICU/blob/master/licenses%5BWIP%5D/LICENSE-MIT-996
