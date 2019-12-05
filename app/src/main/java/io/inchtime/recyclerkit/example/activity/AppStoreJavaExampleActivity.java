@@ -3,13 +3,13 @@ package io.inchtime.recyclerkit.example.activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +22,7 @@ import kotlin.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AppStoreJavaExampleActivity extends AppCompatActivity {
 
@@ -284,7 +285,7 @@ public class AppStoreJavaExampleActivity extends AppCompatActivity {
         descTextView.setText(item.getDesc());
         imageView.setImageResource(item.getImageResId());
         priceButton.setText(item.getPrice() == 0.0 ?
-                getString(R.string.get) : String.format("$%.2f", item.getPrice()));
+                getString(R.string.get) : String.format(Locale.getDefault(), "$%.2f", item.getPrice()));
 
         priceButton.setOnClickListener(v -> {
             viewHolder.getAdapter().removeModel(viewModel);

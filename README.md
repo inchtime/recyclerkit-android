@@ -3,7 +3,7 @@ RecyclerKit for Android
 
 [ ![Download](https://api.bintray.com/packages/inchtime/maven/recyclerkit/images/download.svg) ](https://bintray.com/inchtime/maven/recyclerkit/_latestVersion) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Join the chat at https://gitter.im/inchtime/recyclerkit-android](https://badges.gitter.im/inchtime/recyclerkit-android.svg)](https://gitter.im/inchtime/recyclerkit-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-RecyclerKit is support to use android.support.v7.widget.RecyclerView to display thousands of layout you want via one adapter `RecyclerAdapter`.
+RecyclerKit is support to use androidx.recyclerview.widget.RecyclerView to display thousands of layout you want via one adapter `RecyclerAdapter`.
 
 RecyclerKit also provide a empty view that you can customized when the recyclerView is empty
 

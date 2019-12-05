@@ -2,10 +2,10 @@ package io.inchtime.recyclerkit
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import java.lang.Exception
 
 class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
@@ -36,14 +36,14 @@ class RecyclerAdapterBuilder(val context: Context, val spanCount: Int = 1) {
         return this
     }
 
-    fun withLinearLayout(orientation: Int = LinearLayoutManager.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
+    fun withLinearLayout(orientation: Int = RecyclerView.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
         if (recyclerView == null) throw Exception("please call recyclerView() function first")
         val layoutManager = LinearLayoutManager(context, orientation, reverse)
         recyclerView?.layoutManager = layoutManager
         return this
     }
 
-    fun withGridLayout(orientation: Int = GridLayoutManager.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
+    fun withGridLayout(orientation: Int = RecyclerView.VERTICAL, reverse: Boolean = false): RecyclerAdapterBuilder {
         if (recyclerView == null) throw Exception("please call recyclerView() function first")
         val layoutManager = GridLayoutManager(context, spanCount, orientation, reverse)
         layoutManager.spanSizeLookup = adapter.getSpanSizeLookup()

@@ -1,13 +1,13 @@
 package io.inchtime.recyclerkit
 
 import android.content.Context
-import android.support.annotation.NonNull
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 typealias OnModelViewClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
 typealias OnModelViewLongClick = (index: Int, viewModel: RecyclerAdapter.ViewModel) -> Unit
@@ -176,7 +176,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (viewModels.isEmpty()) {
+        return if (viewModels.isEmpty() && emptyViewVisibility) {
             VIEW_TYPE_EMPTY
         } else viewModels[position].layout
     }
@@ -187,7 +187,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
             val view = inflater.inflate(emptyView, parent, false)
             view.setOnClickListener(this)
             view.setOnLongClickListener(this)
-            view.visibility = if (emptyViewVisibility) View.VISIBLE else View.INVISIBLE
+            view.visibility = if (emptyViewVisibility) View.VISIBLE else View.GONE
             val viewHolder = EmptyViewHolder(context, view)
             viewHolder
         } else {
@@ -202,7 +202,7 @@ class RecyclerAdapter(private val context: Context, private val spanCount: Int =
     }
 
     override fun getItemCount(): Int {
-        return if (viewModels.isNotEmpty()) viewModels.size else 1
+        return if (viewModels.isEmpty() && emptyViewVisibility) 1 else viewModels.size
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {

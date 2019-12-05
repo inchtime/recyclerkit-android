@@ -4,15 +4,15 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.view.GestureDetectorCompat
-import android.support.v4.view.ViewCompat
-import android.support.v4.widget.ViewDragHelper
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.ViewCompat
+import androidx.customview.widget.ViewDragHelper
 
 /**
  * This class is from github:
