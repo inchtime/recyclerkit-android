@@ -19,7 +19,7 @@ Gradle:
 
 ```gradle
 dependencies {
-    implementation 'io.inchtime:recyclerkit:0.7.1'
+    implementation 'io.inchtime:recyclerkit:0.7.4'
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.inchtime</groupId>
   <artifactId>recyclerkit</artifactId>
-  <version>0.7.1</version>
+  <version>0.7.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -125,8 +125,6 @@ Author
 Evan Cai
 
 QQ: 214390117
-
-Wechat: evancai0523
 
 email: evan-cai@live.cn
 

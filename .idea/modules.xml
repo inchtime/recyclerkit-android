@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/recyclerkit/recyclerkit.iml" filepath="$PROJECT_DIR$/recyclerkit/recyclerkit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/recyclerkit-android.iml" filepath="$PROJECT_DIR$/.idea/recyclerkit-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="recyclerkit-android/app" />
+      <module fileurl="file://$PROJECT_DIR$/recyclerkit/recyclerkit.iml" filepath="$PROJECT_DIR$/recyclerkit/recyclerkit.iml" group="recyclerkit-android/recyclerkit" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/recyclerkit-android.iml" filepath="$PROJECT_DIR$/.idea/recyclerkit-android.iml" group="recyclerkit-android" />
     </modules>
   </component>
 </project>
